@@ -1,0 +1,76 @@
+=============================================
+LINUX COMMANDS
+==============================================
+
+find ~ -iname *.txt
+
+cat > test.txt
+
+cat test.txt
+
+chmod 777 -R test/
+
+=============================================
+HDFS commands
+==============================================
+
+rm -rf test
+
+hadoop fs -copyFromLocal ~/test/test.txt .
+
+hadoop fs -copyToLocal test.txt .
+
+hadoop fs -cat test.txt 
+
+hadoop fs -rm test.txt 
+
+hadoop fs -ls /user/
+
+=============================================
+HIVE commands
+==============================================
+CREATE DATABASE STATESDB;
+
+USE STATESDB;
+
+CREATE TABLE StatesGDP
+(
+  YEAR STRING,
+  GDP INT,
+  AGRIALLIED INT,
+  AGRI INT,
+  INDUSTRY INT,
+  MINING INT,
+  MANUFACTURING INT,
+  SERVICES INT,
+  AGRIALLIENTPERCENTAGE FLOAT,
+  AGRIPERCENTAGE FLOAT,
+  INDUSTRYPERCENTAGE FLOAT,
+  MININGPERCENTAGE FLOAT,
+  MANUFACTURINGPERCENTAGE FLOAT,
+  SERVICESPERCENT FLOAT,
+  GDPGROWTH FLOAT,
+  AGRIALLIEDGROWTH FLOAT,
+  AGRIGROWTH FLOAT,
+  INDUSTRYGROWTH FLOAT,
+  MININGGROWTH FLOAT,
+  MANUFACTURINGGROWTH FLOAT,
+  SERVICESGROWTH FLOAT
+ )
+ ROW FORMAT DELIMITED
+ FIELDS TERMINATED BY ','
+ STORED AS TEXTFILE;
+
+--Load the data
+ LOAD DATA LOCAL INPATH 'gdp.csv' OVERWRITE INTO TABLE StatesGDP;
+
+--DESCRIBE the format
+ DESCRIBE StatesGDP;
+
+ --Select all columns
+SELECT * from StatesGDP; 
+
+--only select few columns
+ select year,gdp,agri, agripercentage, agrigrowth from StatesGDP;
+
+ select count(*) from StatesGDP where agrigrowth > 14;
